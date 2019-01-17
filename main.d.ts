@@ -11,6 +11,10 @@ interface SubscribeFunc {
 interface StateFunc {
     (): Object
 }
+export interface ConnectAndProvider {
+    connect: Function
+    Provider: any
+}
 export interface DispatchParams {
     commit(actionName: string, params: Object): void,
     dispatch(actionName: string, params: Object): Promise<any>,
@@ -40,7 +44,8 @@ export interface Actions {
     [propName: string]: Action
 }
 export interface Module {
-    state: Object,
+    state?: Object,
+    store?: Object,
     mutations: Mutations,
     actions: Actions
 }
@@ -55,4 +60,4 @@ export interface PCResult {
     connect(mapStateToProps, params?: any): void
 }
 export function createStore (modules: Modules): State;
-export function createProviderAndConnect (state: State): DispatchParams;
+export function createProviderAndConnect (state: State): ConnectAndProvider;

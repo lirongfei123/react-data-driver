@@ -18,10 +18,10 @@ export default function (Consumer: any) {
         return function (App: any) {
             const preset = extendWithDefined({
                 startRequest: function () {
-                    return <div>开始请求</div>
+                    return <div style={{textAlign:'center'}}>开始请求</div>
                 },
                 waitRequest: function (waitRequests: any) {
-                    return <div>还在请求{waitRequests.join(', ')}</div>
+                    return <div style={{textAlign:'center'}}>加载中...</div>
                 },
                 typeError: function (messages: any) {
                     return <div>
@@ -151,10 +151,14 @@ export default function (Consumer: any) {
                                     })
                                     this.requested = true;
                                     return this.oldLoadingComponent = preset.startRequest();
-                                } else if (this.willRequestAction.size > 0 && !store.isLoading) {
-                                    this.willRequestAction.delete(store.reason)
-                                    if (this.willRequestAction.size !== 0) {
-                                        return this.oldLoadingComponent = preset.waitRequest(Array.from(this.willRequestAction));
+                                } else if (this.willRequestAction.size > 0 ) {
+                                    if (!store.isLoading) {
+                                        this.willRequestAction.delete(store.reason)
+                                        if (this.willRequestAction.size !== 0) {
+                                            return this.oldLoadingComponent = preset.waitRequest(Array.from(this.willRequestAction));
+                                        }
+                                    } else {
+                                        return this.oldLoadingComponent;
                                     }
                                 }
                                 const newProps = mapStateToProps(store.store, store.loading);
@@ -167,15 +171,11 @@ export default function (Consumer: any) {
                                 if (preset.requireProps) {
                                     const checkResults = PropChecks.checkPropTypes(preset.requireProps, result, 'prop', App.name);
                                     if (checkResults.length > 0) {
-                                        if (store.isLoading) {
-                                            return this.oldLoadingComponent;
-                                        } else {
-                                            const messages: any= [];
-                                            checkResults.forEach((type: any) => {
-                                                messages.push(type.name);
-                                            });
-                                            return preset.typeError(messages);
-                                        }
+                                        const messages: any= [];
+                                        checkResults.forEach((type: any) => {
+                                            messages.push(type.name);
+                                        });
+                                        return preset.typeError(messages);
                                     }
                                 }
                                 return <App {...result}></App>;
