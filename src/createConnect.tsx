@@ -85,6 +85,8 @@ export default function (Consumer: any) {
                                 }
                             } else if (typeof value === 'function') {
                                 newParams[path] = value(props);
+                            } else {
+                                newParams[path] = params[path];
                             }
                         })
                         return newParams;

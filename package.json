@@ -3,7 +3,7 @@
   "scripts": {
     "start": "rollup -c rollup.config.js"
   },
-  "version": "1.0.5",
+  "version": "1.0.7",
   "devDependencies": {
     "@types/node": "^10.12.18",
     "@types/react": "^16.7.18",
