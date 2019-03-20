@@ -1,9 +1,9 @@
 {
   "name": "react-data-driver",
   "scripts": {
-    "start": "rollup -c rollup.config.js"
+    "start": "rollup -w -c rollup.config.js"
   },
-  "version": "1.0.7",
+  "version": "1.0.9",
   "devDependencies": {
     "@types/node": "^10.12.18",
     "@types/react": "^16.7.18",

@@ -69,32 +69,36 @@ export default function (Consumer: any) {
                 handleParams(params: any, props: any) {
                     props = this.fillProps(props);
                     if (params) {
-                        const newParams: any = {};
-                        Object.keys(params).forEach((path) => {
-                            const reg1 = /\{(?:[^\}\{]*)\}/g;
-                            const reg = /\{([^\}\{]*)\}/g;
-                            const value = params[path];
-                            if (typeof value === 'string') {
-                                const result = reg1.exec(value);
-                                if (result) {
-                                    newParams[path] = value.replace(reg, (match, key) => {
-                                        return this.baseGet(props, key)
-                                    });
+                        if (typeof params === 'function') {
+                            return params(props);
+                        } else {
+                            const newParams: any = {};
+                            Object.keys(params).forEach((path) => {
+                                const reg1 = /\{(?:[^\}\{]*)\}/g;
+                                const reg = /\{([^\}\{]*)\}/g;
+                                const value = params[path];
+                                if (typeof value === 'string') {
+                                    const result = reg1.exec(value);
+                                    if (result) {
+                                        newParams[path] = value.replace(reg, (match, key) => {
+                                            return this.baseGet(props, key)
+                                        });
+                                    } else {
+                                        newParams[path] = value;
+                                    }
+                                } else if (typeof value === 'function') {
+                                    newParams[path] = value(props);
                                 } else {
-                                    newParams[path] = value;
+                                    newParams[path] = params[path];
                                 }
-                            } else if (typeof value === 'function') {
-                                newParams[path] = value(props);
-                            } else {
-                                newParams[path] = params[path];
-                            }
-                        })
-                        return newParams;
+                            })
+                            return newParams;
+                        }
+                        
                     }
                     return params;
                 }
                 componentWillReceiveProps(props: any) {
-                    let ok = diff(props, this.props);
                     const willRequestActions: any = [];
                     Object.keys(this.oldRequestParams).forEach((actionName) => {
                         const actionParams = this.oldRequestParams[actionName];
@@ -103,7 +107,7 @@ export default function (Consumer: any) {
                             willRequestActions.push(actionName);
                         }
                     });
-                    if (preset.requireProps && this.store && (ok || willRequestActions.length)) {
+                    if (preset.requireProps && this.store && willRequestActions.length > 0) {
                         // 对props做处理
                         willRequestActions.forEach((actionName: any) => {
                             const params = this.handleParams(this.oldRequestParams[actionName][0], props);
