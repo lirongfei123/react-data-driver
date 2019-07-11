@@ -1,1 +1,387 @@
-"use strict";Object.defineProperty(exports,"__esModule",{value:!0});var React=require("react"),PropChecks=require("prop-checks"),extendStatics=function(t,e){return(extendStatics=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(t,e){t.__proto__=e}||function(t,e){for(var r in e)e.hasOwnProperty(r)&&(t[r]=e[r])})(t,e)};function __extends(t,e){function r(){this.constructor=t}extendStatics(t,e),t.prototype=null===e?Object.create(e):(r.prototype=e.prototype,new r)}var __assign=function(){return(__assign=Object.assign||function(t){for(var e,r=1,n=arguments.length;r<n;r++)for(var o in e=arguments[r])Object.prototype.hasOwnProperty.call(e,o)&&(t[o]=e[o]);return t}).apply(this,arguments)};function __awaiter(i,s,a,c){return new(a||(a=Promise))(function(t,e){function r(t){try{o(c.next(t))}catch(t){e(t)}}function n(t){try{o(c.throw(t))}catch(t){e(t)}}function o(e){e.done?t(e.value):new a(function(t){t(e.value)}).then(r,n)}o((c=c.apply(i,s||[])).next())})}function __generator(r,n){var o,i,s,t,a={label:0,sent:function(){if(1&s[0])throw s[1];return s[1]},trys:[],ops:[]};return t={next:e(0),throw:e(1),return:e(2)},"function"==typeof Symbol&&(t[Symbol.iterator]=function(){return this}),t;function e(e){return function(t){return function(e){if(o)throw new TypeError("Generator is already executing.");for(;a;)try{if(o=1,i&&(s=2&e[0]?i.return:e[0]?i.throw||((s=i.return)&&s.call(i),0):i.next)&&!(s=s.call(i,e[1])).done)return s;switch(i=0,s&&(e=[2&e[0],s.value]),e[0]){case 0:case 1:s=e;break;case 4:return a.label++,{value:e[1],done:!1};case 5:a.label++,i=e[1],e=[0];continue;case 7:e=a.ops.pop(),a.trys.pop();continue;default:if(!(s=0<(s=a.trys).length&&s[s.length-1])&&(6===e[0]||2===e[0])){a=0;continue}if(3===e[0]&&(!s||e[1]>s[0]&&e[1]<s[3])){a.label=e[1];break}if(6===e[0]&&a.label<s[1]){a.label=s[1],s=e;break}if(s&&a.label<s[2]){a.label=s[2],a.ops.push(e);break}s[2]&&a.ops.pop(),a.trys.pop();continue}e=n.call(r,a)}catch(t){e=[6,t],i=0}finally{o=s=0}if(5&e[0])throw e[1];return{value:e[0]?e[1]:void 0,done:!0}}([e,t])}}}function innerCreateProvider(r,n){return function(e){function t(t){var o=e.call(this,t)||this;return o.state=null,o.state={store:n.getState(),reason:"init"},n.subscribe(function(t,e,r,n){o.setState({store:t,reason:e,loading:r,isLoading:n})}),o}return __extends(t,e),t.prototype.render=function(){var t={commit:n.commit.bind(n),dispatch:n.dispatch.bind(n),store:this.state.store,state:this.state.store,reason:this.state.reason,loading:this.state.loading,isLoading:this.state.isLoading};return React.createElement(r,{value:t},this.props.children)},t}(React.Component)}var diff=require("deep-diff");function extendWithDefined(e,r){return Object.keys(r).forEach(function(t){void 0!==r[t]&&(e[t]=r[t])}),e}function innerCreateConnect(e){return function(c){return function(s){var a=extendWithDefined({startRequest:function(){return React.createElement("div",{style:{textAlign:"center"}},"开始请求")},waitRequest:function(t){return React.createElement("div",{style:{textAlign:"center"}},"加载中...")},typeError:function(t){return React.createElement("div",null,"因为类型",t.join(","),"不满足要求，无法进行渲染")}},{startRequest:s.startRequest,waitRequest:s.waitRequest,typeError:s.typeError,autoActions:s.autoActions,requireProps:s.requireProps});return a.autoActions&&(a.autoActions=a.autoActions.map(function(t){return"string"==typeof t?{name:t,message:t}:t})),function(r){function t(t){var e=r.call(this,t)||this;return e.store=null,e.oldLoadingComponent=null,e.requested=!0,e.willRequestAction=new Set,e.oldRequestParams={},a.autoActions&&(e.requested=!1),e}return __extends(t,r),t.prototype.baseGet=function(t,e){for(var r=0,n=(e=e.split(".")).length;null!=t&&r<n;)t=t[e[r++]];return r&&r==n?t:void 0},t.prototype.handleParams=function(n,o){var i=this;if(o=this.fillProps(o),n){if("function"==typeof n)return n(o);var s={};return Object.keys(n).forEach(function(t){var e=n[t];if("string"==typeof e){var r=/\{(?:[^\}\{]*)\}/g.exec(e);s[t]=r?e.replace(/\{([^\}\{]*)\}/g,function(t,e){return i.baseGet(o,e)}):e}else s[t]="function"==typeof e?e(o):n[t]}),s}return n},t.prototype.componentWillReceiveProps=function(n){var o=this,i=[];Object.keys(this.oldRequestParams).forEach(function(t){var e=o.oldRequestParams[t],r=o.handleParams(e[0],n);diff(r,e[1])&&i.push(t)}),a.requireProps&&this.store&&0<i.length&&i.forEach(function(t){var e=o.handleParams(o.oldRequestParams[t][0],n);o.oldRequestParams[t]=[o.oldRequestParams[t][0],e],o.store.dispatch(t,e)})},t.prototype.setStore=function(t){this.store=t},t.prototype.fillProps=function(t){var r={};if(this.props.location){var e=this.props.location.search;if(""!==e.trim())e.substring("1").split("&").forEach(function(t){var e=t.split("=");r[e[0]]=e[1]})}return this.props.match&&(r=__assign({},r,this.props.match.params)),__assign({},r,t)},t.prototype.render=function(){var i=this;return React.createElement(e,null,function(r){if(i.setStore(r),!i.requested)return a.autoActions.forEach(function(t){var e=i.handleParams(t.params,i.props);i.oldRequestParams[t.name]=[t.params,e],r.dispatch(t.name,e),i.willRequestAction.add(t.name)}),i.requested=!0,i.oldLoadingComponent=a.startRequest();if(0<i.willRequestAction.size){if(r.isLoading)return i.oldLoadingComponent;if(i.willRequestAction.delete(r.reason),0!==i.willRequestAction.size)return i.oldLoadingComponent=a.waitRequest(Array.from(i.willRequestAction))}var t=c(r.store,r.loading),e=__assign({},i.fillProps(i.props),t,{dispatch:r.dispatch,commit:r.commit});if(a.requireProps){var n=PropChecks.checkPropTypes(a.requireProps,e,"prop",s.name);if(0<n.length){var o=[];return n.forEach(function(t){o.push(t.name)}),a.typeError(o)}}return React.createElement(s,__assign({},e))})},t}(React.Component)}}}var co=require("co"),Store=function(){function t(e){var r=this;this.state={},this.loading={},this.modelMaps={},this.subscribes=[],Object.keys(e).forEach(function(t){r.state[t]=e[t].state}),this.modelMaps=e}return t.prototype.getState=function(){return this.state},t.prototype.dispatch=function(n,o){var t=this,i=n.split("/");return co(function(){return __awaiter(t,void 0,void 0,function(){var e,r=this;return __generator(this,function(t){switch(t.label){case 0:return this.loading[n]=!0,this.subscribes.forEach(function(t){t(r.state,n,r.loading,!0)}),[4,this.modelMaps[i[0]].actions[i[1]]({commit:this.commit.bind(this,n),dispatch:this.dispatch.bind(this),store:__assign({},this.state[i[0]]),state:__assign({},this.state[i[0]])},o)];case 1:return e=t.sent(),this.loading[n]=!1,this.subscribes.forEach(function(t){t(r.state,n,r.loading,!1)}),[2,e]}})})})},t.prototype.commit=function(t,e,r){var n=t.split("/");if(!this.modelMaps[n[0]].mutations[e])throw new Error("不存在此action");this.modelMaps[n[0]].mutations[e](this.state[n[0]],r)},t.prototype.subscribe=function(t){this.subscribes.push(t)},t}();function createStore(t){return new Store(t)}function createProviderAndConnect(t){var e=React.createContext({});return{Provider:innerCreateProvider(e.Provider,t),connect:innerCreateConnect(e.Consumer)}}exports.createStore=createStore,exports.createProviderAndConnect=createProviderAndConnect;
+'use strict';
+
+Object.defineProperty(exports, '__esModule', { value: true });
+
+var React = require('react');
+var PropChecks = require('prop-checks');
+
+/*! *****************************************************************************
+Copyright (c) Microsoft Corporation. All rights reserved.
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+this file except in compliance with the License. You may obtain a copy of the
+License at http://www.apache.org/licenses/LICENSE-2.0
+
+THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
+WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
+MERCHANTABLITY OR NON-INFRINGEMENT.
+
+See the Apache Version 2.0 License for specific language governing permissions
+and limitations under the License.
+***************************************************************************** */
+/* global Reflect, Promise */
+
+var extendStatics = function(d, b) {
+    extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return extendStatics(d, b);
+};
+
+function __extends(d, b) {
+    extendStatics(d, b);
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+}
+
+var __assign = function() {
+    __assign = Object.assign || function __assign(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+
+function __awaiter(thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+}
+
+function __generator(thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+}
+
+function innerCreateProvider (Provider, store) {
+    return /** @class */ (function (_super) {
+        __extends(WrapProvider, _super);
+        function WrapProvider(props) {
+            var _this = _super.call(this, props) || this;
+            _this.state = null;
+            _this.state = {
+                store: store.getState(),
+                reason: 'init',
+                loading: {}
+            };
+            store.subscribe(function (store, reason, loading, isLoading) {
+                _this.setState({
+                    store: store,
+                    reason: reason,
+                    loading: loading,
+                    isLoading: isLoading
+                });
+            });
+            return _this;
+        }
+        WrapProvider.prototype.render = function () {
+            var props = {
+                commit: store.commit.bind(store),
+                dispatch: store.dispatch.bind(store),
+                store: this.state.store,
+                state: this.state.store,
+                reason: this.state.reason,
+                loading: this.state.loading,
+                isLoading: this.state.isLoading
+            };
+            return React.createElement(Provider, { value: props }, this.props.children);
+        };
+        return WrapProvider;
+    }(React.Component));
+}
+
+var diff = require('deep-diff');
+function extendWithDefined(oldObj, newObj) {
+    Object.keys(newObj).forEach(function (key) {
+        if (typeof newObj[key] !== 'undefined') {
+            oldObj[key] = newObj[key];
+        }
+    });
+    return oldObj;
+}
+function innerCreateConnect (Consumer) {
+    return function (mapStateToProps) {
+        return function (App) {
+            var preset = extendWithDefined({
+                startRequest: function () {
+                    return React.createElement("div", { style: { textAlign: 'center' } }, "\u5F00\u59CB\u8BF7\u6C42");
+                },
+                waitRequest: function (waitRequests) {
+                    return React.createElement("div", { style: { textAlign: 'center' } }, "\u52A0\u8F7D\u4E2D...");
+                },
+                typeError: function (messages) {
+                    return React.createElement("div", null,
+                        "\u56E0\u4E3A\u7C7B\u578B",
+                        messages.join(','),
+                        "\u4E0D\u6EE1\u8DB3\u8981\u6C42\uFF0C\u65E0\u6CD5\u8FDB\u884C\u6E32\u67D3");
+                }
+            }, {
+                startRequest: App.startRequest,
+                waitRequest: App.waitRequest,
+                typeError: App.typeError,
+                autoActions: App.autoActions,
+                requireProps: App.requireProps
+            });
+            if (preset.autoActions) {
+                preset.autoActions = preset.autoActions.map(function (action) {
+                    if (typeof action === 'string') {
+                        return {
+                            name: action,
+                            message: action
+                        };
+                    }
+                    return action;
+                });
+            }
+            return /** @class */ (function (_super) {
+                __extends(ConnectComponent, _super);
+                function ConnectComponent(props) {
+                    var _this = _super.call(this, props) || this;
+                    _this.store = null;
+                    _this.oldLoadingComponent = null;
+                    _this.requested = true;
+                    _this.willRequestAction = new Set();
+                    _this.oldRequestParams = {};
+                    if (preset.autoActions) {
+                        _this.requested = false;
+                    }
+                    return _this;
+                }
+                ConnectComponent.prototype.baseGet = function (object, path) {
+                    path = path.split('.');
+                    var index = 0;
+                    var length = path.length;
+                    while (object != null && index < length) {
+                        object = object[path[index++]];
+                    }
+                    return (index && index == length) ? object : undefined;
+                };
+                ConnectComponent.prototype.handleParams = function (params, props) {
+                    var _this = this;
+                    props = this.fillProps(props);
+                    if (params) {
+                        if (typeof params === 'function') {
+                            return params(props);
+                        }
+                        else {
+                            var newParams_1 = {};
+                            Object.keys(params).forEach(function (path) {
+                                var reg1 = /\{(?:[^\}\{]*)\}/g;
+                                var reg = /\{([^\}\{]*)\}/g;
+                                var value = params[path];
+                                if (typeof value === 'string') {
+                                    var result = reg1.exec(value);
+                                    if (result) {
+                                        newParams_1[path] = value.replace(reg, function (match, key) {
+                                            return _this.baseGet(props, key);
+                                        });
+                                    }
+                                    else {
+                                        newParams_1[path] = value;
+                                    }
+                                }
+                                else if (typeof value === 'function') {
+                                    newParams_1[path] = value(props);
+                                }
+                                else {
+                                    newParams_1[path] = params[path];
+                                }
+                            });
+                            return newParams_1;
+                        }
+                    }
+                    return params;
+                };
+                ConnectComponent.prototype.componentWillReceiveProps = function (props) {
+                    var _this = this;
+                    var willRequestActions = [];
+                    Object.keys(this.oldRequestParams).forEach(function (actionName) {
+                        var actionParams = _this.oldRequestParams[actionName];
+                        var newParamValue = _this.handleParams(actionParams[0], props);
+                        if (diff(newParamValue, actionParams[1])) {
+                            willRequestActions.push(actionName);
+                        }
+                    });
+                    if (preset.requireProps && this.store && willRequestActions.length > 0) {
+                        // 对props做处理
+                        willRequestActions.forEach(function (actionName) {
+                            var params = _this.handleParams(_this.oldRequestParams[actionName][0], props);
+                            _this.oldRequestParams[actionName] = [_this.oldRequestParams[actionName][0], params];
+                            _this.store.dispatch(actionName, params);
+                        });
+                    }
+                };
+                ConnectComponent.prototype.setStore = function (store) {
+                    this.store = store;
+                };
+                ConnectComponent.prototype.fillProps = function (props) {
+                    var newProps = {};
+                    if (this.props.location) {
+                        var search = this.props.location.search;
+                        if (search.trim() !== '') {
+                            var searchObj = search.substring('1').split('&');
+                            searchObj.forEach(function (value) {
+                                var temp = value.split('=');
+                                newProps[temp[0]] = temp[1];
+                            });
+                        }
+                    }
+                    if (this.props.match) {
+                        newProps = __assign({}, newProps, this.props.match.params);
+                    }
+                    return __assign({}, newProps, props);
+                };
+                ConnectComponent.prototype.render = function () {
+                    var _this = this;
+                    return React.createElement(Consumer, null, function (store) {
+                        _this.setStore(store);
+                        if (!_this.requested) {
+                            preset.autoActions.forEach(function (action) {
+                                var params = _this.handleParams(action.params, _this.props);
+                                _this.oldRequestParams[action.name] = [action.params, params];
+                                store.dispatch(action.name, params);
+                                _this.willRequestAction.add(action.name);
+                            });
+                            _this.requested = true;
+                            return _this.oldLoadingComponent = preset.startRequest();
+                        }
+                        else if (_this.willRequestAction.size > 0) {
+                            if (!store.isLoading) {
+                                _this.willRequestAction["delete"](store.reason);
+                                if (_this.willRequestAction.size !== 0) {
+                                    return _this.oldLoadingComponent = preset.waitRequest(Array.from(_this.willRequestAction));
+                                }
+                            }
+                            else {
+                                return _this.oldLoadingComponent;
+                            }
+                        }
+                        var newProps = mapStateToProps(store.store, store.loading);
+                        var result = __assign({}, _this.fillProps(_this.props), newProps, { dispatch: store.dispatch, commit: store.commit });
+                        if (preset.requireProps) {
+                            var checkResults = PropChecks.checkPropTypes(preset.requireProps, result, 'prop', App.name);
+                            if (checkResults.length > 0) {
+                                var messages_1 = [];
+                                checkResults.forEach(function (type) {
+                                    messages_1.push(type.name);
+                                });
+                                return preset.typeError(messages_1);
+                            }
+                        }
+                        return React.createElement(App, __assign({}, result));
+                    });
+                };
+                return ConnectComponent;
+            }(React.Component));
+        };
+    };
+}
+
+/* tslint:disable */
+var co = require('co');
+var Store = /** @class */ (function () {
+    function Store(modelMaps) {
+        var _this = this;
+        this.state = {};
+        this.loading = {};
+        this.modelMaps = {};
+        this.subscribes = [];
+        Object.keys(modelMaps).forEach(function (namespace) {
+            _this.state[namespace] = modelMaps[namespace].state;
+        });
+        this.modelMaps = modelMaps;
+    }
+    Store.prototype.getState = function () {
+        return this.state;
+    };
+    Store.prototype.dispatch = function (dispatchAction, params) {
+        var _this = this;
+        var action = dispatchAction.split('/');
+        return co(function () { return __awaiter(_this, void 0, void 0, function () {
+            var result;
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        this.loading[dispatchAction] = true;
+                        this.subscribes.forEach(function (fn) {
+                            fn(_this.state, dispatchAction, _this.loading, true);
+                        });
+                        return [4 /*yield*/, this.modelMaps[action[0]].actions[action[1]]({
+                                commit: this.commit.bind(this, dispatchAction),
+                                dispatch: this.dispatch.bind(this),
+                                store: __assign({}, this.state[action[0]]),
+                                state: __assign({}, this.state[action[0]])
+                            }, params)];
+                    case 1:
+                        result = _a.sent();
+                        this.loading[dispatchAction] = false;
+                        this.subscribes.forEach(function (fn) {
+                            console.log(_this.loading);
+                            fn(_this.state, dispatchAction, _this.loading, false);
+                        });
+                        return [2 /*return*/, result];
+                }
+            });
+        }); });
+    };
+    Store.prototype.commit = function (dispatchAction, commonAction, params) {
+        var action = dispatchAction.split('/');
+        console.log(action, this.modelMaps, commonAction);
+        if (!this.modelMaps[action[0]].mutations[commonAction]) {
+            throw (new Error('不存在此action'));
+            return;
+        }
+        this.modelMaps[action[0]].mutations[commonAction](this.state[action[0]], params);
+    };
+    Store.prototype.subscribe = function (fn) {
+        this.subscribes.push(fn);
+    };
+    return Store;
+}());
+function createStore (modelMaps) {
+    return new Store(modelMaps);
+}
+
+/* tslint:disable */
+function createProviderAndConnect(store) {
+    var newContent = React.createContext({});
+    var Provider = innerCreateProvider(newContent.Provider, store);
+    var connect = innerCreateConnect(newContent.Consumer);
+    return {
+        Provider: Provider,
+        connect: connect
+    };
+}
+
+exports.createStore = createStore;
+exports.createProviderAndConnect = createProviderAndConnect;

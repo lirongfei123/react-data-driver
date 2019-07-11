@@ -18,7 +18,7 @@ export default {
         }),
         tslint({}),
         typescript(),
-        uglify()
+        // uglify()
     ]
 };
 

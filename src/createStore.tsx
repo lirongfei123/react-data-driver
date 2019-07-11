@@ -33,6 +33,7 @@ class Store {
             }, params);
             this.loading[dispatchAction] = false;
             this.subscribes.forEach((fn: any) => {
+                console.log(this.loading);
                 fn(this.state, dispatchAction, this.loading, false);
             });
             return result;
@@ -40,6 +41,7 @@ class Store {
     }
     commit (dispatchAction: any, commonAction: any, params: any) {
         const action = dispatchAction.split('/');
+        console.log(action, this.modelMaps, commonAction);
         if (!this.modelMaps[action[0]].mutations[commonAction]) {
             throw(new Error('不存在此action'));
             return;

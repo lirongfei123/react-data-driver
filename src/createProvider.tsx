@@ -8,6 +8,7 @@ export default function (Provider: any, store: any) {
             this.state = {
                 store: store.getState(),
                 reason: 'init',
+                loading: {}
             }
             store.subscribe((store: any, reason: any, loading: object, isLoading: Boolean) => {
                 this.setState({
