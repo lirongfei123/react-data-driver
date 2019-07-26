@@ -346,7 +346,6 @@ var Store = /** @class */ (function () {
                         result = _a.sent();
                         this.loading[dispatchAction] = false;
                         this.subscribes.forEach(function (fn) {
-                            console.log(_this.loading);
                             fn(_this.state, dispatchAction, _this.loading, false);
                         });
                         return [2 /*return*/, result];

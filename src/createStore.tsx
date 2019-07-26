@@ -33,7 +33,6 @@ class Store {
             }, params);
             this.loading[dispatchAction] = false;
             this.subscribes.forEach((fn: any) => {
-                console.log(this.loading);
                 fn(this.state, dispatchAction, this.loading, false);
             });
             return result;
