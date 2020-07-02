@@ -355,7 +355,6 @@ var Store = /** @class */ (function () {
     };
     Store.prototype.commit = function (dispatchAction, commonAction, params) {
         var action = dispatchAction.split('/');
-        console.log(action, this.modelMaps, commonAction);
         if (!this.modelMaps[action[0]].mutations[commonAction]) {
             throw (new Error('不存在此action'));
             return;

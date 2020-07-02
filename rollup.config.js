@@ -4,7 +4,7 @@ import commonjs from 'rollup-plugin-commonjs';
 import { uglify } from "rollup-plugin-uglify";
 
 export default {
-    input: "src/index.tsx",
+    input: "src/index.ts",
     output: {
         file: "dist/main.js",
         format: "cjs"
