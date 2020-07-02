@@ -118,6 +118,7 @@ function innerCreateProvider (Provider, store) {
         return WrapProvider;
     }(React.Component));
 }
+//# sourceMappingURL=createProvider.js.map
 
 var diff = require('deep-diff');
 function extendWithDefined(oldObj, newObj) {
@@ -305,6 +306,7 @@ function innerCreateConnect (Consumer) {
         };
     };
 }
+//# sourceMappingURL=createConnect.js.map
 
 /* tslint:disable */
 var co = require('co');
@@ -341,7 +343,15 @@ var Store = /** @class */ (function () {
                                 dispatch: this.dispatch.bind(this),
                                 store: __assign({}, this.state[action[0]]),
                                 state: __assign({}, this.state[action[0]])
-                            }, params)];
+                            }, params).then(function (data) {
+                                return data;
+                            }, function (data) {
+                                _this.loading[dispatchAction] = false;
+                                _this.subscribes.forEach(function (fn) {
+                                    fn(_this.state, dispatchAction, _this.loading, false);
+                                });
+                                return Promise.reject(data);
+                            })];
                     case 1:
                         result = _a.sent();
                         this.loading[dispatchAction] = false;
@@ -369,6 +379,7 @@ var Store = /** @class */ (function () {
 function createStore (modelMaps) {
     return new Store(modelMaps);
 }
+//# sourceMappingURL=createStore.js.map
 
 /* tslint:disable */
 function createProviderAndConnect(store) {
@@ -380,6 +391,7 @@ function createProviderAndConnect(store) {
         connect: connect
     };
 }
+//# sourceMappingURL=index.js.map
 
 exports.createStore = createStore;
 exports.createProviderAndConnect = createProviderAndConnect;

@@ -30,7 +30,15 @@ class Store {
                 state: {
                     ...this.state[action[0]]
                 }
-            }, params);
+            }, params).then((data) => {
+                return data;
+            }, (data) => {
+                this.loading[dispatchAction] = false;
+                this.subscribes.forEach((fn: any) => {
+                    fn(this.state, dispatchAction, this.loading, false);
+                });
+                return Promise.reject(data);
+            });
             this.loading[dispatchAction] = false;
             this.subscribes.forEach((fn: any) => {
                 fn(this.state, dispatchAction, this.loading, false);
